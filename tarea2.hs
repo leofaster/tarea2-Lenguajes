@@ -34,4 +34,12 @@ comparar f x (ys,zs)
 
 --2.
 data ArbolRosa a 
-   = ArbolRosa { elemento :: a, hijos:: [ArbolRosa a]}
+   = ArbolRosa { elemento :: a, hijos :: [ArbolRosa a]}
+   deriving Show
+   
+altura :: ArbolRosa a -> Int
+altura (ArbolRosa _ []) = 0
+altura r@(ArbolRosa e xs) = 1 + maximum(map altura (hijos r))
+
+arbolito = ArbolRosa{elemento = 3, hijos = [ArbolRosa{elemento = 5, hijos = [ArbolRosa{elemento = 1, hijos = []}]},
+   ArbolRosa{elemento = 6, hijos = []}, ArbolRosa{elemento = 7, hijos = []}]}
