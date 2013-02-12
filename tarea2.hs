@@ -39,7 +39,16 @@ data ArbolRosa a
    
 altura :: ArbolRosa a -> Int
 altura (ArbolRosa _ []) = 0
-altura r@(ArbolRosa e xs) = 1 + maximum(map altura (hijos r))
+altura (ArbolRosa e xs) = 1 + maximum(map altura xs)
+
+sumaArbol :: Num a => ArbolRosa a -> a
+sumaArbol (ArbolRosa e [])= e
+sumaArbol (ArbolRosa e xs) = e + (foldr (+) 0 (map sumaArbol xs))
+
+aplanar :: ArbolRosa a -> [a]
+aplanar (ArbolRosa e []) = [e]
+aplanar (ArbolRosa e xs) = e:foldr (++) [] (map aplanar xs)
+
 
 arbolito = ArbolRosa{elemento = 3, hijos = [ArbolRosa{elemento = 5, hijos = [ArbolRosa{elemento = 1, hijos = []}]},
-   ArbolRosa{elemento = 6, hijos = []}, ArbolRosa{elemento = 7, hijos = []}]}
+   ArbolRosa{elemento = 6, hijos = []}, ArbolRosa{elemento = 7, hijos = [ArbolRosa{elemento = 9, hijos = []}]}]}
